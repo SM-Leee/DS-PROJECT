@@ -56,7 +56,7 @@
 			</div>
 
 			<div class="ds-ui-input" data-rows="2">
-				<label>상&nbsp;&nbsp;품</label>
+				<label>상&nbsp;&nbsp;품</label> 
 			</div>
 			<div class="ds-ui-input onlynumber">
 				<label>수&nbsp;&nbsp;량</label>
