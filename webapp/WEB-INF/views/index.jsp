@@ -43,7 +43,11 @@
 		</div>
 
 		<div class="contents">
-			<div id="ds-ui-piechart"></div>
+			<div class='chart circle' id='title1' data-set='dataSet'></div>
+            <!-- <div class='chart circle' id='title5' data-set='dataSet'></div> -->
+            <div class='chart radar' id='title2' data-set='dataSet' data-max='100'></div>
+            <div class='chart line' id='title3' data-set='dataSet' data-max='100' data-min='0' data-dist='10'></div>
+            <!-- <div class='chart radar' id='title4' data-set='dataSet' data-max='100'></div> -->
 		</div>
 
 		<div class="footer">
@@ -69,7 +73,18 @@
 				</div>
 			</div>
 		</div>
-	</div>
+		<div id='staticBtn'>
+			<!-- <i id='plusBtn'class="fas fa-plus"></i> -->
+			<div>
+				<i class="fas fa-home"></i>
+			</div>
+			<div>
+				<i class="far fa-hand-point-down"></i>
+			</div>
+			<div>
+				<i class="far fa-hand-point-up"></i>
+			</div>
+		</div>
 	</div>
 
 
@@ -78,13 +93,27 @@
 		src="${pageContext.request.contextPath}/assets/js/dscomponent.js"></script>
 	<script type="text/javascript">
 	
-		var chart = [
-			{title :'ex1' , percent:12},
-			{title: 'ex2', percent: 26},
-			{title: 'ex3', percent: 5},
-			{title: 'ex4',percent: 40},
-			{title: 'ex5',percent: 6},
-			{title: 'ex6',percent: 11}]
+	const dataSet = [
+	    // {title: 'index1',    data: 12,    color: 'red'},
+	    // {title: 'index2',    data: 35,    color: 'green'},
+	    {title: 'index3',    data: 21,    color: 'blue'},
+	    {title: 'index4',    data: 54,    color: 'skyblue'},
+	    {title: 'index5',    data: 18,    color: 'olive'},
+	    {title: 'index6',    data: 65,     color: 'yellow'},
+	    {title: 'index7',    data: 64,    color: 'gray'},
+	    {title: 'index8',    data: 55,    color: 'orange'},
+	    {title: 'index9',    data: 80,    color: 'purple'},
+	    {title: 'index10',   data: 30,    color: 'pink'},
+
+
+	    // {title: 'index1',    data: 50,    color: 'red'},
+	    // {title: 'index2',    data: 60,    color: 'green'},
+	    // {title: 'index3',    data: 50,    color: 'blue'},
+	    // {title: 'index4',    data: 90,    color: 'skyblue'},
+	    // {title: 'index5',    data: 70,    color: 'olive'},
+	    // {title: 'index6',    data: 80,     color: 'yellow'},
+	    // {title: 'index7',    data: 63,    color: 'gray'},
+	]
 	</script>
 </body>
 </html>

@@ -64,8 +64,20 @@
 				</div>
 			</div>
 		</div>
+		<div id='staticBtn'>
+			<!-- <i id='plusBtn'class="fas fa-plus"></i> -->
+			<div>
+				<i class="fas fa-home"></i>
+			</div>
+			<div>
+				<i class="far fa-hand-point-down"></i>
+			</div>
+			<div>
+				<i class="far fa-hand-point-up"></i>
+			</div>
+		</div>
 	</div>
-	</div>
+
 	<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/assets/js/dscomponent.js"></script>

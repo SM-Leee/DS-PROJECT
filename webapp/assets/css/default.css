@@ -38,6 +38,7 @@ ul, ol			{ list-style-type: none }
    /* min-height: 70px;
    max-height: 70px; */
    /* position: fixed; */
+   color:white;
    display : flex;
    width: 100%;
 	

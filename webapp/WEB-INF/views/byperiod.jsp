@@ -38,245 +38,49 @@
 		</div>
 
 		<div class="contents">
-			<div class="content">
-				<!-- periodpicker -->
-				<div class='periodpicker'></div>
-				<!-- cardlist -->
-				<div class='cardlist-wrapper'>
+			<!-- periodpicker -->
+			<div class='periodpicker'>
+				<div id="dsDatepicker" class="ds-ui-datepicker-box">
+					<input type="text" readonly="readonly" id="date"
+						class="ds-ui-datepicker">
+				</div>
+				<div>
+					<label>&nbsp;~&nbsp;</label>
+				</div>
+				<div class="ds-ui-datepicker-box">
+					<input type="text" readonly="readonly" id="date"
+						class="ds-ui-datepicker">
+				</div>
+				<button class="search-button">
+					<i class="fa fa-search"></i>
+				</button>
+			</div>
+
+			<!-- cardlist -->
+			<div class='cardlist-wrapper'>
+				<div class='ds-ui-cardlist'>
 					<div class='cardlist receivables-border'>
 						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='receivables-color'>3,600,000</span>
-							</p>
-						</div>
+						<p>
+							<span>더존 비즈온</span> <span class='receivables-color'>3,600,000</span>
+						</p>
+						<!-- Setting    remove, update,  -->
 					</div>
-					<div class='cardlist income-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='income-color'>3,600,000</span>
-							</p>
-						</div>
+					<div class='ds-ui-setting'>
+						<i class="fas fa-trash-alt"></i> <i class="fas fa-wrench"></i>
 					</div>
-					<div class='cardlist spent-border'>
+				</div>
+				<div class='ds-ui-cardlist'>
+					<div class='cardlist receivables-border'>
 						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
+						<p>
+							<span>더존 비즈온</span> <span class='receivables-color'>3,600,000</span>
+						</p>
+						<!-- Setting    remove, update,  -->
 					</div>
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
+					<div class='ds-ui-setting'>
+						<i class="fas fa-trash-alt"></i> <i class="fas fa-wrench"></i>
 					</div>
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div><div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					<div class='cardlist spent-border'>
-						<div class='card-date'>04/29 월</div>
-						<div class='filledbar'>
-							<p>
-								<span>더존 비즈온</span> <span class='spent-color'>3,600,000</span>
-							</p>
-						</div>
-					</div>
-					
 				</div>
 			</div>
 		</div>
@@ -301,6 +105,18 @@
 					<p>수입</p>
 					<p>200원</p>
 				</div>
+			</div>
+		</div>
+		<div id='staticBtn'>
+			<!-- <i id='plusBtn'class="fas fa-plus"></i> -->
+			<div>
+				<i class="fas fa-home"></i>
+			</div>
+			<div>
+				<i class="far fa-hand-point-down"></i>
+			</div>
+			<div>
+				<i class="far fa-hand-point-up"></i>
 			</div>
 		</div>
 	</div>

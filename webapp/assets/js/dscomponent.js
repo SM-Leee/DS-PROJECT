@@ -4,7 +4,7 @@ let setLocate = 0;
 var togglemenu_visible = [ false ];
 var togglemenu_visibility = "hide";
 var togglemenu = $('#ds-ui-menu').find('div').get();
-
+let cardlistWidth = $('.cardlist-wrapper').outerWidth();
 $(document).ready(function () {
 	resizible();
 	/*header title*/
@@ -35,6 +35,7 @@ $(document).ready(function () {
 	piechart();
 	dropdownlist();
 	inputFormat();
+	$('.cardlist').width(cardlistWidth + 'px');
 	/*$('.ds-ui-subtopicItem a').click(function(event){
 
 		console.log($(this));
@@ -123,6 +124,106 @@ $(document).ready(function () {
 	})
 
 
+	let select;
+	/* 원형 차트 */
+	/* 기본적인 형태는 갖춰졌지만 UI적인 수정이 필요함 */    
+	$('.circle').each(function(){
+		select = '.circle[id='+$(this).attr('id')+'] ';
+		console.log('111111111111');
+		pieChart(dataSet, select);
+	})
+
+	/* 방사형 차트 (radar chart) */
+	$('.radar').each(function(){
+		select = '.radar[id='+$(this).attr('id')+'] ';
+		radarchart(dataSet, select);
+	})
+
+	/* 꺽은선 차트 (line chart) */
+	/* 아직 이건 차트의 사이즈 설정이 완전하지 않음 */
+	/* 또한 UI 적인 수정이 필요함 */
+	$('.line').each(function(){
+		select = '.line[id='+$(this).attr('id')+'] ';
+		lineChart(dataSet, select);
+	})
+
+
+	$('.event').click(function(){
+		console.log($(this).data('value'));
+	})
+
+	/*static button*/
+	const staticBtn = $('#staticBtn');
+	$(staticBtn).append("<i id='plusBtn' class='fas fa-plus'></i>")
+	$(staticBtn).bind('touchmove', function (e) {
+		e.preventDefault();
+		var touchLocation = e.targetTouches[0];
+		var left = touchLocation.pageX;
+		var top = touchLocation.clientY;
+		$(staticBtn).css('left', left - 20 + 'px');
+		$(staticBtn).css('top', top - 20 + 'px');
+		console.log(top);
+		if (left < 0 || left > size) {
+			console.log('사이즈 작음');
+			$(staticBtn).css('display', 'none');
+		}
+	});
+	const staticBtn_child = $(staticBtn).children('div');
+	$(staticBtn).click(function () {
+		$(staticBtn_child).toggle(0, function () {
+			$(staticBtn_child[0]).css({
+				'bottom': '0rem',
+				'right': '4rem',
+			}),
+			$(staticBtn_child[1]).css({
+				'bottom': '3rem',
+				'right': '3rem',
+			}),
+			$(staticBtn_child[2]).css({
+				'bottom': '4rem',
+				'right': '0rem',
+			})
+		})
+	})
+
+	const cardlist = $('.ds-ui-cardlist');
+	const setting = $('.ds-ui-setting');
+	for (var i = 0; i < cardlist.length; i++) {
+		$(cardlist[i]).attr('data-no', i);
+		$(setting[i]).attr('setting-no', i)
+	}
+	let dataNo = 0;
+	$(cardlist).bind('touchstart', function (e) {
+		e.preventDefault();
+		sX = e.touches[0].screenX;
+		dataNo = ($(this).attr('data-no'));
+		selectCardlist(dataNo)
+	})
+	const selectCardlist = (no) => $(cardlist).bind('touchend', function (e) {
+		dataNo = ($(this).attr('data-no'));
+		fX = e.changedTouches[0].screenX;
+		const showSetting = cardlistWidth + 80;
+		if(dataNo == no){
+			if ((fX - sX) / size > 0.20) {
+				$(setting[no]).css({
+					display: "none"
+				}),
+				$(cardlist[no]).css({
+					transform: "translate3d(0px, 0, 0)",
+					width: cardlistWidth + "px"
+				})
+			}
+			if ((fX - sX) / size < -0.20) {
+				$(setting[no]).css({
+					display: "flex"
+				}),
+				$(cardlist[no]).css({
+					transform: "translate3d(-80px, 0, 0)",
+					width: showSetting + "px"
+				})
+			}
+		}
+	})
 });
 
 
@@ -461,3 +562,154 @@ const slideToggled = (footerBoxList, locate, setLocate) => {
 		initFooter(footerBoxList, setLocate);
 	}
 };
+
+//chart
+let layout = (className) => {
+	// console.log($(className));
+	return ($(className).height() < $(className).width() ? $(className).height() : $(className).width());
+	// return 300;
+}
+
+/* pie Chart */
+let pieChart = (dataSet, select) => {
+	let sum = 0;    // dataSet의 data의 총합 (100% 값)
+	let value = 0;
+	let rotate = 0;
+	let stand_size = layout(select)
+	for(let i=0; i < dataSet.length; i++){
+		sum = sum + dataSet[i].data;
+	}
+	$(select).html('<div class="pie-wrapper"></div>')
+	$(select + '.pie-wrapper').css({
+		'width': stand_size,
+		'height': stand_size,
+		'top':'calc(50% - ' + (stand_size / 2) + 'px)',
+		'left':'calc(50% - ' + (stand_size / 2) + 'px)'
+	})
+
+	dataSet.map(function(d, index){
+		value = d.data / sum;
+
+		$(select + '.pie-wrapper').append('<div class="event pie'+(index+1)+' pie" data-value="'+d.data+'"></div>');
+		let tag = '.pie'+(index+1);
+		let clip;
+		if(0 <= value && value < 0.25){
+			clip = Math.tan(Math.PI * value * 2) / (Math.tan(Math.PI * value * 2) + 1) * 100;
+			clip = 'polygon(0 0, '+clip+'% 0, '+clip+'% 0, '+clip+'% 0, '+clip+'% 0, 50% 50%)';
+
+		} else if(0.25 <= value && value < 0.5){
+			clip = Math.tan(Math.PI * (value - 0.25) * 2) / (Math.tan(Math.PI * (value - 0.25) * 2) + 1) * 100;
+			clip = 'polygon(0 0, 100% 0, 100% '+clip+'%, 100% '+clip+'%, 100% '+clip+'%, 50% 50%)';
+
+		} else if(0.5 <= value && value < 0.75){
+			clip = Math.tan(Math.PI * (value - 0.5) * 2) / (Math.tan(Math.PI * (value - 0.5) * 2) + 1) * 100;
+			clip = 'polygon(0 0, 100% 0, 100% 100%, '+(100-clip)+'% 100%, '+(100-clip)+'% 100%, 50% 50%)';
+
+		} else if(0.75 <= value && value < 1){
+			clip = Math.tan(Math.PI * (value - 0.75) * 2) / (Math.tan(Math.PI * (value - 0.75) * 2) + 1) * 100;
+			clip = 'polygon(0 0, 100% 0, 100% 100%, 0% 100%, 0% '+(100-clip)+'%, 50% 50%)';
+		}
+
+		$(select + tag).css({
+			'background-color': d.color,
+			'clip-path': clip,
+			'transform': "rotate(" + (rotate+45) +"deg)"
+		});
+		rotate = rotate + (value * 360);  
+	})
+}
+
+/* radar Chart */
+let radarchart = (dataSet, select) => {
+
+	// console.log();
+	let stand_size = layout(select);
+	let point = '';
+	// console.log(stand_size)
+
+	$(select).html("<div class='radar-background'></div>");
+	dataSet.map(function(data, index){
+		let angle = 360/dataSet.length*index;
+		let beforedata = data.data/$(select).data('max')*50;
+
+		// console.log('beforedata : ' + beforedata + " angle : " + angle)
+		$(select + '.radar-background').append("<div class='stand-line stand-line"+index+"'></div>")
+		$(select + '.stand-line'+index).css({
+			'transform':"rotate(" + angle + "deg)"
+		})
+
+		point = point + ((beforedata*Math.sin(Math.PI * angle/360 *2))+50)+'% '+ ((beforedata*Math.cos(Math.PI * angle/360 *2)*-1)+50)+'% ';
+		if(index+1 !== dataSet.length){point = point + ',';}
+
+		// $('.radar-background').append("<div class='event data-point data-point"+index+"' data-value='"+data.data+"'></div>")
+		$(select + '.radar-background').append("<div class='event data-point data-point"+index+"' data-value='"+data.data+"'></div>")
+		$(select + '.data-point'+index).css({
+			'left':'calc('+((beforedata*Math.sin(Math.PI * angle/360 *2))+50)+'% - 0.5rem)',
+			'top':'calc(' + ((beforedata*Math.cos(Math.PI * angle/360 *2)*-1)+50)+'% - 0.5rem)'
+		})
+	})
+
+
+
+	$(select).append("<div class='radar-showdata'></div>")
+	$(select + '.radar-background,' + select + '.radar-showdata').css({
+		'width': stand_size,
+		'height': stand_size,
+		'border-radius':'50%',
+		'top': 'calc(50% - ' + (stand_size / 2) + 'px)',
+		'left': 'calc(50% - ' + (stand_size / 2) + 'px)'
+	})
+
+	$(select + '.radar-showdata').css({
+		'clip-path':'polygon(' + point + ')'
+	})
+
+}
+
+/* line Chart */
+let lineChart = (dataSet, select) => {
+	let stand_size = layout(select);
+	let point = '';
+	let dist = ($(select).data('max')-$(select).data('min'))/$(select).data('dist');
+
+	$(select).html("<div class='line-background'></div><div class='line-showdata'></div>");
+
+	dataSet.map(function(data, index){
+
+		let X_value = 100/(dataSet.length-1)*index;
+		let beforedata = (100-(data.data-$(select).data('min'))/($(select).data('max')-$(select).data('min'))*100);
+
+		point = point + X_value + '% ' + beforedata + '% ';
+		if(index+1 !== dataSet.length){point = point + ',';}
+
+		$(select + '.line-background').append('<div class="event data-point data-point'+index+'" data-value="'+data.data+'"></div>')
+		$(select + '.data-point'+index).css({
+			'top':'calc('+beforedata+'% - 0.5rem)',
+			'left':'calc('+X_value+'% - 0.5rem)'
+		})
+	})
+
+	for(let i = 0; i < dist; i++){
+
+
+		$(select + '.line-background').append('<div class="stand-line stand-line'+i+'"></div>');
+		$(select + '.stand-line'+i).css({
+			'top':(100/dist*i) + '%'
+		})
+	}
+
+	// console.log(point)
+	point = 'polygon(' + point + ',100% 100%, 0 100%)';
+
+	$(select + '.line-background, ' + select + '.line-showdata').css({
+		'top': 'calc(50% - ' + (stand_size / 3) + 'px)',
+		'left': 'calc(50% - ' + (stand_size / 2) + 'px)',
+		'width': stand_size,
+		'height': stand_size/3*2
+	})
+
+	$(select + '.line-showdata').css({
+		'clip-path': point
+	})
+
+}
