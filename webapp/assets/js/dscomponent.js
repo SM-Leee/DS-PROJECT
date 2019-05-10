@@ -35,6 +35,7 @@ $(document).ready(function () {
 	piechart();
 	dropdownlist();
 	inputFormat();
+	datePicker();
 	$('.cardlist').width(cardlistWidth + 'px');
 	/*$('.ds-ui-subtopicItem a').click(function(event){
 
@@ -66,31 +67,31 @@ $(document).ready(function () {
 		});
 	}
 
-	if($('.ds-ui-datepicker')) {
-		$('.ds-ui-datepicker-box label').wrap('<div class="datepicker-label-box"></div>')    
-		$datepicker = $('.ds-ui-datepicker');
-		$datepicker.wrap('<div class="group-date"></div>')
-		.after('<i class="fa fa-calendar"></i>');
-
-		// datepicker click event on
-		$('.ds-ui-datepicker').on('click', function(event){
-			console.log("clicked! : datepicker");
-			// basicModal();                
-			dateModal();
-		});
-
-	}
-	if($('.ds-ui-datepicker-box').length != 0){
-
-		$('.fa-calendar').wrap('<span class="icon-wrap"></span>');
-		transDate = today.getFullYear() + '-' 
-		+ (today.getMonth()+1 < 10 ? '0' : '') 
-		+ (today.getMonth()+1) + '-' 
-		+ (today.getDate() < 10 ? '0' : '') 
-		+ today.getDate();
-		$('#date')[0].value = transDate;
-
-	}
+//	if($('.ds-ui-datepicker')) {
+//		$('.ds-ui-datepicker-box label').wrap('<div class="datepicker-label-box"></div>')    
+//		$datepicker = $('.ds-ui-datepicker');
+//		$datepicker.wrap('<div class="group-date"></div>')
+//		.after('<i class="fa fa-calendar"></i>');
+//
+//		// datepicker click event on
+//		$('.ds-ui-datepicker').on('click', function(event){
+//			console.log("clicked! : datepicker");
+//			// basicModal();                
+//			dateModal();
+//		});
+//
+//	}
+//	if($('.ds-ui-datepicker-box').length != 0){
+//
+//		$('.fa-calendar').wrap('<span class="icon-wrap"></span>');
+//		transDate = today.getFullYear() + '-' 
+//		+ (today.getMonth()+1 < 10 ? '0' : '') 
+//		+ (today.getMonth()+1) + '-' 
+//		+ (today.getDate() < 10 ? '0' : '') 
+//		+ today.getDate();
+//		$('#date')[0].value = transDate;
+//
+//	}
 
 
 	const footerBoxList = $('.footerBox');
@@ -225,6 +226,58 @@ $(document).ready(function () {
 		}
 	})
 });
+
+
+//datePicker setting
+const datePicker = () => {
+	if($('#date').length != 0) {
+		dateHtml($('#date'));
+		// datepicker click event on
+		datepickerListener($('#date'));
+		initDate($('#date'));
+	}
+	if($('#fromDate').length != 0) {
+		$('#fromDate').addClass('period-option');
+		dateHtml($('#fromDate'));
+		// datepicker click event on
+		datepickerListener($('#fromDate'));
+		initDate($('#fromDate'));
+	}
+	if($('#toDate').length != 0) {
+		$('#toDate').addClass('period-option');
+		dateHtml($('#toDate'));
+		// datepicker click event on
+		datepickerListener($('#toDate'));
+		initDate($('#toDate'));
+	}
+}
+const datepickerListener = ($target) => {
+	$target.on('click', function(event){
+		console.log("clicked! : datepicker");
+		// basicModal();                
+		dateModal($target);
+	});
+}
+const dateHtml = ($target) => {
+	$target.wrap('<div class="ds-ui-datepicker-box"></div>')
+		.addClass('ds-ui-datepicker')
+		.attr('readonly', 'readonly');
+	
+	if($target.data('dsLabel')) {
+		$target.before('<div class="datepicker-label-box"></div>')
+			.prev().append('<label>' + $target.data('dsLabel') + '</label>');
+	}
+}
+const initDate = ($target) => {
+	if($('.ds-ui-datepicker-box').length != 0){
+		transDate = today.getFullYear() + '-' 
+		+ (today.getMonth() + 1 < 10 ? '0' : '') 
+		+ (today.getMonth() + 1) + '-' 
+		+ (today.getDate() < 10 ? '0' : '') 
+		+ today.getDate();
+		$target[0].value = transDate;
+	}
+}
 
 
 const resizible = function () {
@@ -423,8 +476,9 @@ function buildCalendar() {
 
 }
 
-const dateModal = () => {
-	basicModal();
+
+const dateModal = ($target) => {
+	basicModal($target);
 
 	if($('.date-header').length == 0) {
 		//headerViewRender
@@ -469,7 +523,7 @@ const dateModal = () => {
 }
 
 
-const basicModal = () => {
+const basicModal = ($target) => {
 	if($('.popupBox').length == 0) {
 		$('<div class="popupBox"></div>').appendTo("body");
 		console.log("popupBox created!!");
@@ -496,11 +550,11 @@ const basicModal = () => {
 		$('.popup-set-tb').append(row).children().next().on('click', () => {
 			$('.popupBox').addClass('popup-off');
 			transDate = today.getFullYear() + '-' 
-			+ (today.getMonth()+1 < 10 ? '0' : '') 
+			+ (today.getMonth()+1 < 10 ? '0' : '')
 			+ (today.getMonth()+1) + '-' 
 			+ (today.getDate() < 10 ? '0' : '') 
 			+ today.getDate();
-			$('#date')[0].value = transDate;
+			$target[0].value = transDate;
 		});
 
 		console.log('layout, popup created in popupBox!!');
@@ -509,6 +563,8 @@ const basicModal = () => {
 
 	$('.popupBox').removeClass('popup-off');
 };
+
+
 
 /*dropdown*/
 const dropdownlist = function(){

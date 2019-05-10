@@ -38,11 +38,14 @@
 		</div>
 
 		<div class="contents">
-			<div class="ds-ui-datepicker-box">
-				<label>일&nbsp;&nbsp;자</label> <input type="text" readonly="readonly"
-					id="date" class="ds-ui-datepicker">
-			</div>
-
+			<input type="text" id="date" data-ds-label="일  자">
+				<!--  
+				<div class="ds-ui-datepicker-box">
+					<label>일&nbsp;&nbsp;자</label> <input type="text" readonly="readonly"
+						id="date" class="ds-ui-datepicker">
+				</div>
+				 -->
+			 
 			<div class="ds-ui-dropdown-picker-box">
 				<label>분&nbsp;&nbsp;류</label> <select class="dropdown-picker">
 					<option value="volvo">Volvo</option>

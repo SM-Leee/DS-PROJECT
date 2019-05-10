@@ -349,10 +349,11 @@
    padding: 1vmin;
    padding-left: 3px;
 }
-
+/* 
 .fa .fa-calendar {
    font-size: 1.0em;
 }
+ */
 .search-button {
    border-radius: 5px;
     border: none;
@@ -363,7 +364,25 @@
 .fa .fa-search {
    font-size: 4vmin;
 }
-
+.ds-ui-datepicker {
+    background: url(../images/calendar_font_awesome.svg) no-repeat 95% 48%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    height: 75%;
+    padding: 2%;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    font-size: 4vmin;
+    width: 58%;
+    background-size: 5vmin;
+    padding-right: 5vmin;
+    text-align: left;
+}
+.period-option {
+    flex:4.5;
+}
+/*
 .ds-ui-datepicker {
    padding-left:5%;
    width: 85%;
@@ -372,7 +391,7 @@
    border: none;
    border-radius: 5px;
 }
-
+ 
 .icon-wrap {
    flex: 1;
    
@@ -384,7 +403,7 @@
    border: 2px solid #90BAFE;
    border-radius: 5px;
 }
-
+ */
 .popup-off {
    display: none;
 }

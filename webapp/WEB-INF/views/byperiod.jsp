@@ -39,6 +39,7 @@
 
 		<div class="contents">
 			<!-- periodpicker -->
+			<!-- 
 			<div class='periodpicker'>
 				<div id="dsDatepicker" class="ds-ui-datepicker-box">
 					<input type="text" readonly="readonly" id="date"
@@ -51,6 +52,19 @@
 					<input type="text" readonly="readonly" id="date"
 						class="ds-ui-datepicker">
 				</div>
+				<button class="search-button">
+					<i class="fa fa-search"></i>
+				</button>
+			</div>
+			test
+ 			-->
+ 			
+			<div class='periodpicker'>
+				<input type="text" id="fromDate">
+				<div>
+					<label>&nbsp;~&nbsp;</label>
+				</div>
+				<input type="text" id="toDate">
 				<button class="search-button">
 					<i class="fa fa-search"></i>
 				</button>
