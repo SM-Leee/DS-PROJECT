@@ -39,13 +39,13 @@
 
 		<div class="contents">
 			<input type="text" id="date" data-ds-label="일  자">
-				<!--  
+			<!--  
 				<div class="ds-ui-datepicker-box">
 					<label>일&nbsp;&nbsp;자</label> <input type="text" readonly="readonly"
 						id="date" class="ds-ui-datepicker">
 				</div>
 				 -->
-			 
+
 			<div class="ds-ui-dropdown-picker-box">
 				<label>분&nbsp;&nbsp;류</label> <select class="dropdown-picker">
 					<option value="volvo">Volvo</option>
@@ -59,7 +59,7 @@
 			</div>
 
 			<div class="ds-ui-input" data-rows="2">
-				<label>상&nbsp;&nbsp;품</label> 
+				<label>상&nbsp;&nbsp;품</label>
 			</div>
 			<div class="ds-ui-input onlynumber">
 				<label>수&nbsp;&nbsp;량</label>
@@ -76,10 +76,10 @@
 			<div class="ds-ui-input" data-rows="2" data-column="2">
 				<label>상세정보</label>
 			</div>
+			<div class="ds-ui-basicButton">추 가</div>
+			<div class="ds-ui-basicButton fileupload"></div>
 
-			<div class="ds-ui-input" data-rows="2" data-column="2">
-				<label>상세정보</label>
-			</div>
+
 		</div>
 
 		<div class="footer">
@@ -121,8 +121,11 @@
 
 	<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/assets/js/dscomponent.js"></script>
+		src="${pageContext.request.contextPath}/assets/js/ds.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/assets/js/app.js"></script>
 	<script>
+		
 	</script>
 
 </body>

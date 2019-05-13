@@ -90,7 +90,9 @@
 
 	<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/assets/js/dscomponent.js"></script>
+		src="${pageContext.request.contextPath}/assets/js/ds.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/assets/js/app.js"></script>
 	<script type="text/javascript">
 	
 	const dataSet = [
@@ -103,7 +105,7 @@
 	    {title: 'index7',    data: 64,    color: 'gray'},
 	    {title: 'index8',    data: 55,    color: 'orange'},
 	    {title: 'index9',    data: 80,    color: 'purple'},
-	    {title: 'index10',   data: 30,    color: 'pink'},
+	    {title: 'index10',   data: 30,    color: 'pink'}
 
 
 	    // {title: 'index1',    data: 50,    color: 'red'},
