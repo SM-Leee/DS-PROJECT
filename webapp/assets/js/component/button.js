@@ -11,6 +11,6 @@ const basicButton = function(){
 				"<div>" +
 				"<label for='ds-ui-filename'><i class='fas fa-camera'></i></label>"+
 				"</div>" +
-		"<input type='file' id='ds-ui-filename' class='upload-hidden'>");
+		"<input type='file' id='ds-ui-filename' class='upload-hidden' accept='image/*'>");
 	})
 }

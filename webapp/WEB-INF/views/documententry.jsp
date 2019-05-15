@@ -17,7 +17,7 @@
 	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
 	crossorigin="anonymous">
 </head>
-<body>
+<body class="body">
 	<div class="App">
 		<div class="header">
 			<div id="ds-ui-menu">
@@ -39,12 +39,6 @@
 
 		<div class="contents">
 			<input type="text" id="date" data-ds-label="일  자">
-			<!--  
-				<div class="ds-ui-datepicker-box">
-					<label>일&nbsp;&nbsp;자</label> <input type="text" readonly="readonly"
-						id="date" class="ds-ui-datepicker">
-				</div>
-				 -->
 
 			<div class="ds-ui-dropdown-picker-box">
 				<label>분&nbsp;&nbsp;류</label> <select class="dropdown-picker">
@@ -76,47 +70,48 @@
 			<div class="ds-ui-input" data-rows="2" data-column="2">
 				<label>상세정보</label>
 			</div>
+			<div class="ds-ui-input" data-rows="2" data-column="2">
+				<label>상세정보</label>
+			</div>
 			<div class="ds-ui-basicButton">추 가</div>
 			<div class="ds-ui-basicButton fileupload"></div>
-
-
+			<h1 class='h1'></h1>
 		</div>
 
 		<div class="footer">
-			<div class='footerBox'>
-				<div class='income-bgcolor vertical'>
-					<p>수입</p>
-					<p>수입</p>
-				</div>
-				<div class='spent-bgcolor horizen'>
-					<p>지출</p>
-					<p>200,000,000</p>
-				</div>
-			</div>
-			<div class='footerBox'>
-				<div class='income-bgcolor'>수입</div>
-				<div class='spent-bgcolor'>지출</div>
-				<div class='receivables-bgcolor'>미지급</div>
-			</div>
-			<div class='footerBox'>
-				<div class='income-bgcolor vertical'>
-					<p>수입</p>
-					<p>200원</p>
-				</div>
-			</div>
+			<div class="ds-ui-footerBox">
+                <div data-color='#6498B5'>
+                    <p>수입</p>
+                    <p>200,200,000</p>
+                </div>
+                <div data-color='#E74D3A'>
+                    <p>지출</p>
+                    <p>200,200,000</p>
+                </div>
+            </div>
+            <div class="ds-ui-footerBox">
+                <div data-color='#6498B5' data-direction='horizen'>
+                    <p>수입</p>
+                    <p>200,200,000</p>
+                </div>
+            </div>
+            <div class="ds-ui-footerBox">
+                <div data-color='#6498B5'>
+                    <p>수입</p>
+                    <p>200,200,000</p>
+                </div>
+                <div data-color='#E74D3A'>
+                    <p>지출</p>
+                    <p>200,000</p>
+                </div>
+                <div data-color='#ABACB2'>
+                    <p>미지급</p>
+                    <p>322,432,000</p>
+                </div>
+            </div>
 		</div>
-		<div id='staticBtn'>
-			<!-- <i id='plusBtn'class="fas fa-plus"></i> -->
-			<div>
-				<i class="fas fa-home"></i>
-			</div>
-			<div>
-				<i class="far fa-hand-point-down"></i>
-			</div>
-			<div>
-				<i class="far fa-hand-point-up"></i>
-			</div>
-		</div>
+		<div id='ds-ui-staticBtn'></div>
+		<div id='ds-ui-staticShowBtn'></div>
 	</div>
 
 	<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -125,7 +120,9 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/assets/js/app.js"></script>
 	<script>
-		
+	
+	
+	
 	</script>
 
 </body>

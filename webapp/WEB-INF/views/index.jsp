@@ -1,8 +1,3 @@
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -22,7 +17,7 @@
 	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
 	crossorigin="anonymous">
 </head>
-<body>
+<body class="body">
 	<div class="App">
 		<div class="header">
 			<div id="ds-ui-menu">
@@ -43,48 +38,49 @@
 		</div>
 
 		<div class="contents">
-			<div class='chart circle' id='title1' data-set='dataSet'></div>
-            <!-- <div class='chart circle' id='title5' data-set='dataSet'></div> -->
-            <div class='chart radar' id='title2' data-set='dataSet' data-max='100'></div>
-            <div class='chart line' id='title3' data-set='dataSet' data-max='100' data-min='0' data-dist='10'></div>
-            <!-- <div class='chart radar' id='title4' data-set='dataSet' data-max='100'></div> -->
+			<div class='chart circle' id='circle1' data-set='dataSet' data-index-position='right'></div>
+			<!-- <div class='chart circle' id='title5' data-set='dataSet'></div> -->
+			<div class='chart radar' id='radar1' data-set='dataSet'
+				data-max='100'></div>
+			<div class='chart line' id='line3' data-set='dataSet' data-max='100'
+				data-min='0' data-dist='10'></div>
+			<!-- <div class='chart radar' id='title4' data-set='dataSet' data-max='100'></div> -->
 		</div>
 
 		<div class="footer">
-			<div class='footerBox'>
-				<div class='income-bgcolor vertical'>
+			<div class="ds-ui-footerBox">
+				<div data-color='#6498B5'>
 					<p>수입</p>
-					<p>수입</p>
+					<p>200,200,000</p>
 				</div>
-				<div class='spent-bgcolor horizen'>
+				<div data-color='#E74D3A'>
 					<p>지출</p>
-					<p>200,000,000</p>
+					<p>200,200,000</p>
 				</div>
 			</div>
-			<div class='footerBox'>
-				<div class='income-bgcolor'>수입</div>
-				<div class='spent-bgcolor'>지출</div>
-				<div class='receivables-bgcolor'>미지급</div>
-			</div>
-			<div class='footerBox'>
-				<div class='income-bgcolor vertical'>
+			<div class="ds-ui-footerBox">
+				<div data-color='#6498B5' data-direction='horizen'>
 					<p>수입</p>
-					<p>200원</p>
+					<p>200,200,000</p>
+				</div>
+			</div>
+			<div class="ds-ui-footerBox">
+				<div data-color='#6498B5'>
+					<p>수입</p>
+					<p>200,200,000</p>
+				</div>
+				<div data-color='#E74D3A'>
+					<p>지출</p>
+					<p>200,000</p>
+				</div>
+				<div data-color='#ABACB2'>
+					<p>미지급</p>
+					<p>322,432,000</p>
 				</div>
 			</div>
 		</div>
-		<div id='staticBtn'>
-			<!-- <i id='plusBtn'class="fas fa-plus"></i> -->
-			<div>
-				<i class="fas fa-home"></i>
-			</div>
-			<div>
-				<i class="far fa-hand-point-down"></i>
-			</div>
-			<div>
-				<i class="far fa-hand-point-up"></i>
-			</div>
-		</div>
+		<div id='ds-ui-staticBtn'></div>
+		<div id='ds-ui-staticShowBtn'></div>
 	</div>
 
 
@@ -96,23 +92,20 @@
 	<script type="text/javascript">
 	
 	const dataSet = [
-	    // {title: 'index1',    data: 12,    color: 'red'},
-	    // {title: 'index2',    data: 35,    color: 'green'},
-	    {title: 'index3',    data: 21,    color: 'blue'},
-	    {title: 'index4',    data: 54,    color: 'skyblue'},
-	    {title: 'index5',    data: 18,    color: 'olive'},
-	    {title: 'index6',    data: 65,     color: 'yellow'},
-	    {title: 'index7',    data: 64,    color: 'gray'},
-	    {title: 'index8',    data: 55,    color: 'orange'},
-	    {title: 'index9',    data: 80,    color: 'purple'},
-	    {title: 'index10',   data: 30,    color: 'pink'}
-
-
+	    {title: 'index1',    data: 21,    color: 'blue'},
+	    {title: 'index2',    data: 54,    color: 'skyblue'},
+	    {title: 'index3',    data: 5,    color: 'olive'},
+	    //{title: 'index4',    data: 65,     color: 'yellow'},
+	    {title: 'index5',    data: 64,    color: 'gray'},
+	    {title: 'index6',    data: 55,    color: 'orange'},
+	    {title: 'index7',    data: 80,    color: 'purple'},
+	    {title: 'index8',   data: 30,    color: 'green'},
+	    //{title: 'index9',   data: 30,    color: 'black'}
 	    // {title: 'index1',    data: 50,    color: 'red'},
 	    // {title: 'index2',    data: 60,    color: 'green'},
 	    // {title: 'index3',    data: 50,    color: 'blue'},
 	    // {title: 'index4',    data: 90,    color: 'skyblue'},
-	    // {title: 'index5',    data: 70,    color: 'olive'},
+	     {title: 'index9',    data: 70,    color: 'yellow'},
 	    // {title: 'index6',    data: 80,     color: 'yellow'},
 	    // {title: 'index7',    data: 63,    color: 'gray'},
 	]

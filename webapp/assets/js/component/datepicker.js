@@ -1,19 +1,20 @@
+/*date-picker*/
 //datePicker setting
 const datePicker = () => {
-	if($('#date').length != 0) {
+	if($('#date').length != 0 && $('#date').data('dsIsPopup') == undefined) {
 		dateHtml($('#date'));
 		// datepicker click event on
 		datepickerListener($('#date'));
 		initDate($('#date'));
 	}
-	if($('#fromDate').length != 0) {
+	if($('#fromDate').length != 0 && $('#fromDate').data('dsIsPopup') == undefined) {
 		$('#fromDate').addClass('period-option');
 		dateHtml($('#fromDate'));
 		// datepicker click event on
 		datepickerListener($('#fromDate'));
 		initDate($('#fromDate'));
 	}
-	if($('#toDate').length != 0) {
+	if($('#toDate').length != 0 && $('#toDate').data('dsIsPopup') == undefined) {
 		$('#toDate').addClass('period-option');
 		dateHtml($('#toDate'));
 		// datepicker click event on
@@ -23,19 +24,18 @@ const datePicker = () => {
 }
 const datepickerListener = ($target) => {
 	$target.on('click', function(event){
-		console.log("clicked! : datepicker");
-		// basicModal();                
+		// basicModal();
 		dateModal($target);
 	});
 }
 const dateHtml = ($target) => {
 	$target.wrap('<div class="ds-ui-datepicker-box"></div>')
-		.addClass('ds-ui-datepicker')
-		.attr('readonly', 'readonly');
-	
+	.addClass('ds-ui-datepicker')
+	.attr('readonly', 'readonly');
+	$target[0].dataset.dsIsPopup = false;
 	if($target.data('dsLabel')) {
 		$target.before('<div class="datepicker-label-box"></div>')
-			.prev().append('<label>' + $target.data('dsLabel') + '</label>');
+		.prev().append('<label>' + $target.data('dsLabel') + '</label>');
 	}
 }
 const initDate = ($target) => {
@@ -49,36 +49,81 @@ const initDate = ($target) => {
 	}
 }
 
-/*date-picker*/
 let today = new Date(); // 오늘 날짜
-function prevCalendar() {
+function prevCalendar($targetPB) {
 	today = new Date(today.getFullYear(), today.getMonth() -1, today.getDate());
-	buildCalendar();
+	buildCalendar($targetPB);
 }
-function nextCalendar() {
+function nextCalendar($targetPB) {
 	today = new Date(today.getFullYear(), today.getMonth() +1, today.getDate());
-	buildCalendar();
+	buildCalendar($targetPB);
 }
 
-function buildCalendar() {
+function abbreviationDate(target, len) {
+	return target.substring(0, len);
+}
+
+function buildCalendar($targetPB) {
 	let nMonth = new Date(today.getFullYear(), today.getMonth(), 1); // 이번 달의 첫째 날
 	let lastDate = new Date(today.getFullYear(), today.getMonth() + 1, 0); // 이번 달의 마지막 날
-	let $tbCalendar = $('.date-tb'); // 테이블 달력을 만들 테이블 선택
-	let $tbCalendarYM = $('.date-tb-title'); // yyyy년 mm월 출력할 곳
+	let $tbCalendar = $targetPB.find('.date-tb'); // 테이블 달력을 만들 테이블 선택
+	let $tbCalendarYM = $targetPB.find('.date-tb-title'); // yyyy년 mm월 출력할 곳
 
 	// 오늘 날짜
 	let currentYear = today.getFullYear();
 	let currentMonth = today.getMonth() + 1;
+	let exp_date = {
+			ko:{
+				month: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+				week: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일']
+			},
+			en:{
+				month:['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+				week:['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+			}
+	}
+
 	let currentDate = today.getDate();
-	let week = ['일', '월', '화', '수', '목', '금', '토'];
-	let currentVIP = week[today.getDay()]; // 요일
+	let currentVIP = null; // 요일
+	exp_month = null;
+	exp_week = null;
+	exp_year = null;
+	exp_day = null;
+	if($targetPB.hasClass('ko')) {
+		$tbCalendarYM.addClass('ko');
+		exp_year = currentYear + '년';
+		exp_month = exp_date.ko.month[currentMonth-1];
+		exp_day = currentDate + '일';
+		exp_week = exp_date.ko.week;
+		currentVIP = abbreviationDate(exp_week[today.getDay()], 1);
+	} else if($targetPB.hasClass('en')) {
+		$tbCalendarYM.addClass('en');
+		exp_year = currentYear;
+		exp_month = exp_date.en.month[currentMonth-1];
+		exp_week = exp_date.en.week;
+		exp_month = abbreviationDate(exp_month, 3) + '.';
+		exp_day = currentDate;
+		currentVIP = abbreviationDate(exp_week[today.getDay()], 2);
+	}
 
-	tempValue = currentMonth + '월 ' + currentDate + '일 (' + currentVIP + ')';
+	tempValue = exp_month + ' ' + exp_day + ' (' + currentVIP + ')';
+	$targetPB.find('.date-title').children('span').text(tempValue);
+	$targetPB.find('.date-subtitle').children('span').text(currentYear);
+	$tbCalendarYM.children().text(exp_year);
+	$tbCalendarYM.children().next().text(exp_month);
 
-	$('.date-title').children('span').text(tempValue);
-	$('.date-subtitle').children('span').text(currentYear + '년');
-	tempValue = currentYear + '년 ' + currentMonth + '월';
-	$tbCalendarYM.children().text(tempValue); // yyyy년 m월 출력
+	if($targetPB.hasClass('ko')) {
+		for(var i=0; i<exp_week.length; i++){
+			$tbCalendar
+			.find('th').text(abbreviationDate(exp_week[i], 1));
+		}
+	}
+	if($targetPB.hasClass('en')) {
+		for(var i=0; i<exp_week.length; i++){
+			$tbCalendar
+			.find('th').text(abbreviationDate(exp_week[i], 2));
+		}
+	}
 
 	while ($tbCalendar[0].rows.length > 1) {
 		$tbCalendar[0].deleteRow($tbCalendar[0].rows.length - 1);
@@ -100,16 +145,20 @@ function buildCalendar() {
 			row = $tbCalendar[0].insertRow();// 줄 추가
 	}
 
-	$('td').on('click', (event) => {
+	$('td').unbind('click').bind('click', (event) => {
 		currentDate = event.target.innerHTML;
 		if(currentDate == '') return;
+		console.log("ko : " + $targetPB.hasClass('ko'))
+		if($targetPB.hasClass('ko')) {
+			exp_day = currentDate + "일";
+		} else {
+			exp_day = currentDate;
+
+		}
+		tempValue = exp_month + ' ' + exp_day + ' (' + currentVIP + ')';
 		today.setDate(currentDate);
-		currentVIP = week[today.getDay()];
-		tempValue = currentMonth + '월 ' + currentDate + '일 (' + currentVIP + ')';
-		$('.date-title').children('span').text(tempValue);
-		$('.date-subtitle').children('span').text(currentYear + '년');
-		tempValue = currentYear + '년 ' + currentMonth + '월';
-		$tbCalendarYM.children('span').text(tempValue); // yyyy년 m월 출력
+		$targetPB.find('.date-title').children('span').text(tempValue);
+		$targetPB.find('.date-subtitle').children('span').text(exp_year);
 	});
 
 	$('td').hover((event) => {
@@ -122,11 +171,10 @@ function buildCalendar() {
 
 }
 
-
 const dateModal = ($target) => {
 	basicModal($target);
-
-	if($('.date-header').length == 0) {
+	$targetPB = $('#' + $target[0].id + '_pb');
+	if($target[0].dataset.dsIsPopup == 'false') {
 		//headerViewRender
 		let dateHeader = 
 			"<div class='date-header'>" +
@@ -137,7 +185,8 @@ const dateModal = ($target) => {
 			"<span></span>" +
 			"</div>" +
 			"</div>";
-		$('.popup-header')
+
+		$targetPB.find('.popup-header')
 		.append(dateHeader);
 
 		//bodyViewRender
@@ -149,34 +198,67 @@ const dateModal = ($target) => {
 			"</div>" +
 			"<div class='date-basic'>" +
 			"<div class='date-tb-title'>" +
-			"<span></span>" +
+			"<div></div>&nbsp" +
+			"<div></div>" +
 			"</div>" +
 			"<table class='date-tb'>" +
-			"<th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>" +
+			"<tr></tr>"
 			"</table>" +
 			"</div>" +
 			"</div>";
-		$('.popup-body').append(dateBody);
-		buildCalendar();
-		$('.fa-angle-left').on('click', (event) => {
-			prevCalendar();
+
+		$targetPB.find('.popup-body')
+		.append(dateBody);
+
+		buildCalendar($targetPB);
+
+		$targetPB.find('.fa-angle-left').unbind('click').bind('click', (event) => {
+			prevCalendar($targetPB);
 		});
-		$('.fa-angle-right').on('click', (event) => {
-			nextCalendar();
+		$targetPB.find('.fa-angle-right').unbind('click').bind('click', (event) => {
+			nextCalendar($targetPB);
 		});
+
+		// Popup - footer
+		row = "<div><a id='popup-close' href='#close'>취소</a></div>";
+		$targetPB.find('.popup-set-tb').append(row);
+
+		row = "<div><a id='popup-check' href='#check'>설정</a></div>";
+		$targetPB.find('.popup-set-tb').append(row);
 	}
 
+	$targetPB.find('.popup-set-tb').children().unbind('click').bind('click', () => {
+		$targetPB.addClass('popup-off');
+	});
+
+	$targetPB.find('.popup-set-tb').children().next().unbind('click').bind('click', () => {
+		$targetPB.addClass('popup-off');
+		transDate = today.getFullYear() + '-' 
+		+ (today.getMonth() + 1 < 10 ? '0' : '')
+		+ (today.getMonth() + 1) + '-' 
+		+ (today.getDate() < 10 ? '0' : '') 
+		+ today.getDate();
+		$target[0].value = transDate;
+	});
+
+	$target[0].dataset.dsIsPopup =  true;
 }
 
 
 const basicModal = ($target) => {
-	if($('.popupBox').length == 0) {
-		$('<div class="popupBox"></div>').appendTo("body");
+	target_id = '#' + $target[0].id + '_pb';
+	if($target.data('dsIsPopup') == false && $(target_id).length == 0) {
+		if($target.data('dsLanguage') == null) {
+			$target.data('dsLanguage', 'ko');
+		}
+		console.log($target.data('dsLanguage'));
+
+		$('<div class="popupBox" id=' + $target[0].id + '_pb></div>').appendTo("body");
+		$('#' + $target[0].id + '_pb').addClass($target.data('dsLanguage'));
 		console.log("popupBox created!!");
 
-		$popupBox = $('.popupBox');
-		$popupBox
-		.append('<div class="overlay">overlay</div>')
+		$(target_id)
+		.append('<div class="overlay"></div>')
 		.append('<div class="popup"></div>')
 		.children('.popup')
 		.append('<div class="popup-content"></div>')
@@ -187,25 +269,9 @@ const basicModal = ($target) => {
 		.children('.popup-footer')
 		.append('<div class="popup-set-tb"></div>');
 
-		row = "<div><a id='popup-close' href='#close'>취소</a></div>";
-		$('.popup-set-tb').append(row).children().on('click', () => {
-			$('.popupBox').addClass('popup-off');
-		});
-
-		row = "<div><a id='popup-check' href='#check'>설정</a></div>";
-		$('.popup-set-tb').append(row).children().next().on('click', () => {
-			$('.popupBox').addClass('popup-off');
-			transDate = today.getFullYear() + '-' 
-			+ (today.getMonth()+1 < 10 ? '0' : '')
-			+ (today.getMonth()+1) + '-' 
-			+ (today.getDate() < 10 ? '0' : '') 
-			+ today.getDate();
-			$target[0].value = transDate;
-		});
-
 		console.log('layout, popup created in popupBox!!');
 
 	}
 
-	$('.popupBox').removeClass('popup-off');
+	$(target_id).removeClass('popup-off');
 };
